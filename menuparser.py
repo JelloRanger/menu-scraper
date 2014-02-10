@@ -5,11 +5,11 @@ import urllib.request
 
 class FoodItem():
 
-    def __init__(self, name, dayOfWeek):
+    def __init__(self, name, dayOfWeek, mealTime):
         self.name = name
         self.diningHall = ""
-        self.mealTime = ""
-        self.dayOfWeek = dayOfWeek
+        self.mealTime = mealTime.lower()
+        self.dayOfWeek = dayOfWeek.lower()
         self.date = ""
 
         # future attributes to record
@@ -19,7 +19,7 @@ class FoodItem():
 
     # print out relevant food information in a clean format
     def __str__(self):
-        return self.dayOfWeek + ": " + self.name
+        return self.dayOfWeek + ", "+ self.mealTime + ": " + self.name
         
 
 class MenuParser(HTMLParser):
@@ -34,6 +34,7 @@ class MenuParser(HTMLParser):
 
         # keep track of day of week, mealTime, ...
         self.day = ""
+        self.mealTime = ""
 
         # record the names of the food items
         self.foods = []
@@ -68,6 +69,11 @@ class MenuParser(HTMLParser):
         if tag == "a" and attrs[0][0] == "name" and attrs[0][1] != "pagetop":
             self.day = attrs[0][1]
 
+        # food item meal time is ready to be read
+        if tag == "td" and len(attrs) > 1:
+            if attrs[1][0] == "class" and attrs[1][1] == "mealname":
+                self.recordMealTime = True
+
 
     # all the end tags are handled by this function
     def handle_endtag(self, tag):
@@ -76,8 +82,8 @@ class MenuParser(HTMLParser):
         if self.recordName:
             self.recordName = False
 
-            # create FoodItem and set its name as well as its day of serving
-            self.foods.append(FoodItem("".join(self.text), self.day))
+            # create FoodItem w/ data: name, day, meal time
+            self.foods.append(FoodItem("".join(self.text), self.day, self.mealTime))
 
             self.text = [] # clear to record next food name
             
@@ -88,6 +94,11 @@ class MenuParser(HTMLParser):
         # ready to read in food item name
         if self.recordName:
             self.text.append(data)
+
+        # ready to read in food item meal time
+        if self.recordMealTime:
+            self.mealTime = data
+            self.recordMealTime = False
 
 
     # debugging function to print list of food items
