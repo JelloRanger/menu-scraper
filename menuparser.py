@@ -114,6 +114,12 @@ class MenuParser(HTMLParser):
 # instantiate the parser and feed it some HTML
 parser = MenuParser()
 parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Commons1.htm")
+#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Commons2.htm")
 #parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Sage.htm")
+#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Sage2.htm")
+#parser.begin_parsing("http://rpi.sodexomyway.com/menu/BARH.htm")
+#parser.begin_parsing("http://rpi.sodexomyway.com/menu/BARH2.htm")
+#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Blitmans.htm")
+
 
 
