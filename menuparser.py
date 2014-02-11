@@ -1,11 +1,16 @@
 from html.parser import HTMLParser
 import urllib.request
+import re
 
 # ***** JACOB ABRAMSON ***** 
 
 class FoodItem():
 
     def __init__(self, name, dayOfWeek, mealTime):
+
+        # remove excess whitespace, \n, and \r characters
+        name = re.sub(r"\s+", " ", name)
+
         self.name = name
         self.diningHall = ""
         self.mealTime = mealTime.lower()
@@ -73,6 +78,8 @@ class MenuParser(HTMLParser):
         if tag == "td" and len(attrs) > 1:
             if attrs[1][0] == "class" and attrs[1][1] == "mealname":
                 self.recordMealTime = True
+            elif attrs[0][0] == "class" and attrs[0][1] == "mealname":
+                self.recordMealTime = True
 
 
     # all the end tags are handled by this function
@@ -110,5 +117,6 @@ class MenuParser(HTMLParser):
 # instantiate the parser and feed it some HTML
 parser = MenuParser()
 parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Commons1.htm")
+#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Sage.htm")
 
 
