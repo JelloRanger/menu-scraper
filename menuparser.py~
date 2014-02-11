@@ -63,6 +63,7 @@ class MenuParser(HTMLParser):
         self.printFoods()
 
 
+    # all the start tags are handled by this function
     def handle_starttag(self, tag, attrs):
 
         # food item name is ready to be read
@@ -81,6 +82,7 @@ class MenuParser(HTMLParser):
                 self.recordMealTime = True
 
 
+    # all the end tags are handled by this function
     def handle_endtag(self, tag):
 
         # add food item to list, and signify food item is done being recorded
@@ -93,6 +95,7 @@ class MenuParser(HTMLParser):
             self.text = [] # clear to record next food name
             
 
+    # all the data is handled by this function
     def handle_data(self, data):
 
         # ready to read in food item name
