@@ -2,7 +2,28 @@ from html.parser import HTMLParser
 import urllib.request
 import re
 
-# ***** JACOB ABRAMSON ***** 
+# ***** JACOB ABRAMSON *****
+
+class FoodMenu():
+
+    def __init__(self):
+        self.foodList = []
+
+    # add a food to the menu
+    def addFood(self, foodItem):
+        self.foodList.append(foodItem)
+
+    # implement later
+    def getFood(self, name):
+        pass
+
+    def __str__(self, diningHall=None, day=None, meal=None):
+        # print out all items in menu
+        if diningHall is None:
+            
+            for food in foodList:
+                print (food)    
+        
 
 class FoodItem():
 
@@ -62,6 +83,9 @@ class MenuParser(HTMLParser):
         # print food names we have scraped
         self.printFoods()
 
+        # clear list
+        self.foods = []
+
 
     def handle_starttag(self, tag, attrs):
 
@@ -112,8 +136,8 @@ class MenuParser(HTMLParser):
 
 
 # instantiate the parser and feed it some HTML
-parser = MenuParser()
-parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Commons1.htm")
+#parser = MenuParser()
+#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Commons1.htm")
 #parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Commons2.htm")
 #parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Sage.htm")
 #parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Sage2.htm")
