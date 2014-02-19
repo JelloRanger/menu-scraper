@@ -4,6 +4,7 @@ import re
 
 # ***** JACOB ABRAMSON *****
 
+# TO BE UTILIZED LATER
 class FoodMenu():
 
     def __init__(self):
@@ -147,8 +148,6 @@ class MenuParser(HTMLParser):
 
             self.text = [] # clear to record next food name
 
-        
-            
 
     def handle_data(self, data):
 
@@ -163,30 +162,8 @@ class MenuParser(HTMLParser):
 
         # ready to read in station
         if self.recordStation:
-            self.stationText.append(data)
+            self.stationText.append(data
 
-
-    #def handle_entityref(self, entity):
-        #if self.recordStation is True:
-            #if entity == "nbsp":
-                #print ("lol")
-
-
-    # debugging function to print list of food items
-    def printFoods(self):
-        for food in self.foods:
-            print (food)
-
-
-# instantiate the parser and feed it some HTML
-#parser = MenuParser()
-#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Commons1.htm")
-#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Commons2.htm")
-#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Sage.htm")
-#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Sage2.htm")
-#parser.begin_parsing("http://rpi.sodexomyway.com/menu/BARH.htm")
-#parser.begin_parsing("http://rpi.sodexomyway.com/menu/BARH2.htm")
-#parser.begin_parsing("http://rpi.sodexomyway.com/Menu/Blitmans.htm")
 
 
 
