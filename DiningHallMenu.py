@@ -12,19 +12,19 @@ class DiningHallMenu():
                   "Sage2":    "http://rpi.sodexomyway.com/Menu/Sage2.htm",
                   "BARH":     "http://rpi.sodexomyway.com/Menu/BARH.htm",
                   "BARH2":    "http://rpi.sodexomyway.com/Menu/BARH2.htm",
-                  "Blitman":  "http://rpi.sodexomyway.com/Menu/Blitmans.htm" }
-                 
+                  "Blitman":  "http://rpi.sodexomyway.com/Menu/Blitmans.htm" }               
+
     # begins parsing on a given webpage, or all if none specified
     def parse(self, url=None):
 
         # parse all the menus
         if url is None:
 
-            for url in self.urls:
+            for name, webpage in self.urls.items():
 
                 # debugging
-                print ("\n", url[0], "\n")
-                self.parser.begin_parsing(url[1])
+                print ("\n", name, "\n")
+                self.parser.begin_parsing(webpage)
 
         # otherwise parse the specified menu
         else:
@@ -36,6 +36,6 @@ class DiningHallMenu():
 
 # instantiate DiningHallMenu and begin parsing menus
 menu = DiningHallMenu()
-menu.parse("Commons")
+menu.parse()
 
         
