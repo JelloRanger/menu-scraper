@@ -162,7 +162,15 @@ class MenuParser(HTMLParser):
 
         # ready to read in station
         if self.recordStation:
-            self.stationText.append(data
+            self.stationText.append(data)
+
+
+    # debugging function to print list of food items
+    def printFoods(self):
+        for food in self.foods:
+            print (food)
+
+
 
 
 
