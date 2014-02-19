@@ -27,15 +27,24 @@ class FoodMenu():
 
 class FoodItem():
 
-    def __init__(self, name, dayOfWeek, mealTime):
+    def __init__(self, name, dayOfWeek, mealTime, station):
 
         # remove excess whitespace, \n, and \r characters
         name = re.sub(r"\s+", " ", name)
+        station = re.sub(r"\s+", " ", station)
+
+        # entree is recorded differently in terms of
+        # the e with accent on the various menus,
+        # so to make things simpler, we avoid the e with accent
+        # character by checking first 4 letters, and set it to entree
+        if station.lower()[0:4] == "entr":
+            station = "entree"
 
         self.name = name
         self.diningHall = ""
         self.mealTime = mealTime.lower()
         self.dayOfWeek = dayOfWeek.lower()
+        self.station = station.lower()
         self.date = ""
 
         # future attributes to record
@@ -45,7 +54,8 @@ class FoodItem():
 
     # print out relevant food information in a clean format
     def __str__(self):
-        return self.dayOfWeek + ", "+ self.mealTime + ": " + self.name
+        return (self.dayOfWeek + ", "+ self.mealTime + ", " +
+               self.station + ": " + self.name)
         
 
 class MenuParser(HTMLParser):
@@ -57,10 +67,12 @@ class MenuParser(HTMLParser):
         # lets us know when to record specific data
         self.recordName = False
         self.recordMealTime = False
+        self.recordStation = False
 
-        # keep track of day of week, mealTime, ...
+        # keep track of day of week, mealTime, station ...
         self.day = ""
         self.mealTime = ""
+        self.station = ""
 
         # record the names of the food items
         self.foods = []
@@ -68,6 +80,7 @@ class MenuParser(HTMLParser):
         # used to deal with multiple calls to handle_data
         # in the case an & is in a food name
         self.text = []
+        self.stationText = []
 
 
     # begin the scraping of the provided webpage
@@ -104,17 +117,37 @@ class MenuParser(HTMLParser):
             elif attrs[0][0] == "class" and attrs[0][1] == "mealname":
                 self.recordMealTime = True
 
+        # food item station is ready to be read
+        if tag == "td" and len(attrs) > 0:
+            if attrs[0][0] == "class" and attrs[0][1] == "station":
+                self.recordStation = True
+
 
     def handle_endtag(self, tag):
+
+        # record station
+        if self.recordStation:
+            self.recordStation = False
+            
+            # make sure it is new station name
+            # (sodexo doesn't put same name for multiple food items
+            # under same station)
+            if len("".join(self.stationText)) > 0:
+                self.station = "".join(self.stationText)
+
+            self.stationText = [] # clear to record next station
 
         # add food item to list, and signify food item is done being recorded
         if self.recordName:
             self.recordName = False
 
             # create FoodItem w/ data: name, day, meal time
-            self.foods.append(FoodItem("".join(self.text), self.day, self.mealTime))
+            self.foods.append(FoodItem("".join(self.text), self.day,
+                                       self.mealTime, self.station))
 
             self.text = [] # clear to record next food name
+
+        
             
 
     def handle_data(self, data):
@@ -127,6 +160,16 @@ class MenuParser(HTMLParser):
         if self.recordMealTime:
             self.mealTime = data
             self.recordMealTime = False
+
+        # ready to read in station
+        if self.recordStation:
+            self.stationText.append(data)
+
+
+    #def handle_entityref(self, entity):
+        #if self.recordStation is True:
+            #if entity == "nbsp":
+                #print ("lol")
 
 
     # debugging function to print list of food items
