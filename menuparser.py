@@ -28,7 +28,7 @@ class FoodMenu():
 
 class FoodItem():
 
-    def __init__(self, name, dayOfWeek, mealTime, station):
+    def __init__(self, name, dayOfWeek, mealTime, station, attribute):
 
         # remove excess whitespace, \n, and \r characters
         name = re.sub(r"\s+", " ", name)
@@ -46,7 +46,7 @@ class FoodItem():
         self.mealTime = mealTime.lower()
         self.dayOfWeek = dayOfWeek.lower()
         self.station = station.lower()
-        self.date = ""
+        self.attribute = attribute
 
         # future attributes to record
         #self.vegetarian
@@ -55,8 +55,10 @@ class FoodItem():
 
     # print out relevant food information in a clean format
     def __str__(self):
-        return (self.dayOfWeek + ", "+ self.mealTime + ", " +
-               self.station + ": " + self.name)
+        self.output = (self.dayOfWeek + ", " + self.mealTime + ", " + self.station + ": " + self.name + ": ")
+        for attr in self.attribute:
+            self.output += ("{} ".format(attr))
+        return self.output
         
 
 class MenuParser(HTMLParser):
@@ -69,11 +71,13 @@ class MenuParser(HTMLParser):
         self.recordName = False
         self.recordMealTime = False
         self.recordStation = False
+        self.recordAttribute = False
 
         # keep track of day of week, mealTime, station ...
         self.day = ""
         self.mealTime = ""
         self.station = ""
+        self.attribute = []
 
         # record the names of the food items
         self.foods = []
@@ -107,6 +111,11 @@ class MenuParser(HTMLParser):
         if tag == "span" and attrs[0][0] == "class" and attrs[0][1] == "ul":
             self.recordName = True
 
+        # food attribute is ready to be read
+        if tag == "img" and attrs[0][0] == "class" and attrs[0][1] == "icon" and attrs[2][0] == "alt":
+            self.attribute.append(attrs[2][1])
+            self.recordAttribute = True
+
         # food item day of serving is ready to be read
         if tag == "a" and attrs[0][0] == "name" and attrs[0][1] != "pagetop":
             self.day = attrs[0][1]
@@ -126,6 +135,11 @@ class MenuParser(HTMLParser):
 
     def handle_endtag(self, tag):
 
+        # record attributes
+        if self.recordAttribute:
+            self.recordAttribute = False
+            self.attribute = []
+
         # record station
         if self.recordStation:
             self.recordStation = False
@@ -144,7 +158,7 @@ class MenuParser(HTMLParser):
 
             # create FoodItem w/ data: name, day, meal time
             self.foods.append(FoodItem("".join(self.text), self.day,
-                                       self.mealTime, self.station))
+                                       self.mealTime, self.station, self.attribute))
 
             self.text = [] # clear to record next food name
 
