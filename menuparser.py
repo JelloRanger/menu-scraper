@@ -55,9 +55,11 @@ class FoodItem():
 
     # print out relevant food information in a clean format
     def __str__(self):
-        self.output = (self.dayOfWeek + ", " + self.mealTime + ", " + self.station + ": " + self.name + ": ")
-        for attr in self.attribute:
-            self.output += ("{} ".format(attr))
+        self.output = (self.dayOfWeek + ", " + self.mealTime + ", " + self.station + ": " + self.name)
+        if (len(self.attribute) > 0):
+            self.output += (": {}".format(self.attribute[0]))
+            for attr in self.attribute[1:]:
+                self.output += (", {}".format(attr))
         return self.output
         
 
