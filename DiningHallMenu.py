@@ -6,13 +6,13 @@ class DiningHallMenu():
     def __init__(self):
         self.parser = menuparser.MenuParser()
         self.urls = {
-                  "Commons":  "http://rpi.sodexomyway.com/Menu/Commons1.htm",
-                  "Commons2": "http://rpi.sodexomyway.com/Menu/Commons2.htm",
-                  "Sage":     "http://rpi.sodexomyway.com/Menu/Sage.htm",
-                  "Sage2":    "http://rpi.sodexomyway.com/Menu/Sage2.htm",
-                  "BARH":     "http://rpi.sodexomyway.com/Menu/BARH.htm",
-                  "BARH2":    "http://rpi.sodexomyway.com/Menu/BARH2.htm",
-                  "Blitman":  "http://rpi.sodexomyway.com/Menu/Blitmans.htm" }               
+                  "\rCommons":  "http://rpi.sodexomyway.com/Menu/Commons1.htm",
+                  "\rCommons2": "http://rpi.sodexomyway.com/Menu/Commons2.htm",
+                  "\rSage":     "http://rpi.sodexomyway.com/Menu/Sage.htm",
+                  "\rSage2":    "http://rpi.sodexomyway.com/Menu/Sage2.htm",
+                  "\rBARH":     "http://rpi.sodexomyway.com/Menu/BARH.htm",
+                  "\rBARH2":    "http://rpi.sodexomyway.com/Menu/BARH2.htm",
+                  "\rBlitman":  "http://rpi.sodexomyway.com/Menu/Blitmans.htm" }               
 
     # begins parsing on a given webpage, or all if none specified
     def parse(self, url=None):
