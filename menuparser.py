@@ -112,9 +112,11 @@ class MenuParser(HTMLParser):
             self.recordName = True
 
         # food attribute is ready to be read
-        if tag == "img" and attrs[0][0] == "class" and attrs[0][1] == "icon" and attrs[2][0] == "alt":
-            self.attribute.append(attrs[2][1])
-            self.recordAttribute = True
+        if tag == "img" and attrs[0][0] == "class" and attrs[0][1] == "icon":
+            for group in attrs:
+                if group[0] == "alt":
+                    self.attribute.append(group[1])
+        self.recordAttribute = True
 
         # food item day of serving is ready to be read
         if tag == "a" and attrs[0][0] == "name" and attrs[0][1] != "pagetop":
