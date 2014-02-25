@@ -23,7 +23,7 @@ class DiningHallMenu():
             for name, webpage in self.urls.items():
 
                 # debugging
-                print ("\n", name, "\n")
+                print (name)
                 self.parser.begin_parsing(webpage)
 
         # otherwise parse the specified menu
