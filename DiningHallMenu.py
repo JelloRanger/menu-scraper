@@ -1,4 +1,5 @@
 import menuparser
+import FoodMenu
 
 class DiningHallMenu():
 
@@ -24,12 +25,12 @@ class DiningHallMenu():
 
                 # debugging
                 print (name)
-                self.parser.begin_parsing(webpage)
+                self.parser.begin_parsing(webpage, name)
 
         # otherwise parse the specified menu
         else:
             assert url in self.urls, "Invalid url"
-            self.parser.begin_parsing(self.urls[url])
+            self.parser.begin_parsing(self.urls[url], url)
                 
                 
 

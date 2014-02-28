@@ -2,7 +2,8 @@ import re
 
 class FoodItem():
 
-    def __init__(self, name, dayOfWeek, mealTime, station, attribute):
+    def __init__(self, diningHall, name, dayOfWeek,
+                 mealTime, station, attribute):
 
         # remove excess whitespace, \n, and \r characters
         name = re.sub(r"\s+", " ", name)
@@ -16,7 +17,7 @@ class FoodItem():
             station = "entree"
 
         self.name = name
-        self.diningHall = ""
+        self.diningHall = diningHall
         self.mealTime = mealTime.lower()
         self.dayOfWeek = dayOfWeek.lower()
         self.station = station.lower()
@@ -35,3 +36,7 @@ class FoodItem():
             for attr in self.attribute[1:]:
                 self.output += (", {}".format(attr))
         return self.output
+
+    # get the dining hall for a FoodItem
+    def getDiningHall(self):
+        return self.diningHall

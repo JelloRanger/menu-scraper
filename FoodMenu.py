@@ -1,4 +1,6 @@
 import re
+import menuparser
+import FoodItem
 
 # TO BE UTILIZED LATER
 class FoodMenu():
@@ -14,9 +16,22 @@ class FoodMenu():
     def getFood(self, name):
         pass
 
-    def __str__(self, diningHall=None, day=None, meal=None):
+    def __str__(self):
         # print out all items in menu
-        if diningHall is None:
+        result = ""
             
-            for food in foodList:
-                print (food)
+        for food in self.foodList:
+            result += str(food)
+            result += "\n"
+
+        return result
+
+    def printDiningHall(self, diningHall):
+        result = ""
+
+        for food in self.foodList:
+            if food.getDiningHall() == diningHall:
+                result += str(food)
+                result += "\n"
+
+        print (result)
