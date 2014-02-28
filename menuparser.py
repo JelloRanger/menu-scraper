@@ -4,7 +4,8 @@ import re
 from FoodMenu import FoodMenu
 from FoodItem import FoodItem
 
-# ***** JACOB ABRAMSON *****        
+# ***** JACOB ABRAMSON *****
+# *****    DAN BAEK    *****
 
 class MenuParser(HTMLParser):
 
@@ -48,9 +49,6 @@ class MenuParser(HTMLParser):
 
         # print food names we have scraped
         self.foodMenu.printDiningHall(self.diningHall)
-
-        # clear list
-        #self.foods = []
 
 
     def handle_starttag(self, tag, attrs):
