@@ -34,4 +34,6 @@ class FoodMenu():
                 result += str(food)
                 result += "\n"
 
-        print (result)
+        f = open("output.txt", 'a', encoding = 'iso-8859-1')
+        f.write(result)
+        f.close()

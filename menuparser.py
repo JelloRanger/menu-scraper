@@ -129,8 +129,10 @@ class MenuParser(HTMLParser):
 
     # debugging function to print list of food items
     def printFoods(self):
+        f = open("output.txt", 'a', encoding = 'iso-8859-1')
         for food in self.foods:
-            print (food)
+            f.write(food)
+        f.close()
 
 
 

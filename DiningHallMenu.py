@@ -1,6 +1,10 @@
 import menuparser
 import FoodMenu
 
+f = open("output.txt", 'w', encoding = 'iso-8859-1')
+f.write("")
+f.close()
+
 class DiningHallMenu():
 
     # instantiate parser and generate dict of webpage urls for each dining hall
@@ -24,7 +28,9 @@ class DiningHallMenu():
             for name, webpage in self.urls.items():
 
                 # debugging
-                print (name)
+                f = open("output.txt", 'a', encoding = 'iso-8859-1')
+                f.write(name + "\n")
+                f.close()
                 self.parser.begin_parsing(webpage, name)
 
         # otherwise parse the specified menu
