@@ -5,19 +5,24 @@ f = open("output.txt", 'w', encoding = 'iso-8859-1')
 f.write("")
 f.close()
 
+f = open("output.json", 'w', encoding = 'iso-8859-1')
+f.write("")
+f.close()
+
+
 class DiningHallMenu():
 
     # instantiate parser and generate dict of webpage urls for each dining hall
     def __init__(self):
         self.parser = menuparser.MenuParser()
         self.urls = {
-                  "\nCommons":  "http://rpi.sodexomyway.com/Menu/Commons1.htm",
-                  "\nCommons2": "http://rpi.sodexomyway.com/Menu/Commons2.htm",
-                  "\nSage":     "http://rpi.sodexomyway.com/Menu/Sage.htm",
-                  "\nSage2":    "http://rpi.sodexomyway.com/Menu/Sage2.htm",
-                  "\nBARH":     "http://rpi.sodexomyway.com/Menu/BARH.htm",
-                  "\nBARH2":    "http://rpi.sodexomyway.com/Menu/BARH2.htm",
-                  "\nBlitman":  "http://rpi.sodexomyway.com/Menu/Blitmans.htm" }               
+                  "Commons":  "http://rpi.sodexomyway.com/Menu/Commons1.htm",
+                  "Commons2": "http://rpi.sodexomyway.com/Menu/Commons2.htm",
+                  "Sage":     "http://rpi.sodexomyway.com/Menu/Sage.htm",
+                  "Sage2":    "http://rpi.sodexomyway.com/Menu/Sage2.htm",
+                  "BARH":     "http://rpi.sodexomyway.com/Menu/BARH.htm",
+                  "BARH2":    "http://rpi.sodexomyway.com/Menu/BARH2.htm",
+                  "Blitman":  "http://rpi.sodexomyway.com/Menu/Blitmans.htm" }               
 
     # begins parsing on a given webpage, or all if none specified
     def parse(self, url=None):
@@ -31,7 +36,13 @@ class DiningHallMenu():
                 f = open("output.txt", 'a', encoding = 'iso-8859-1')
                 f.write(name + "\n")
                 f.close()
+                f = open("output.json", 'a', encoding = 'iso-8859-1')
+                f.write("{" + "\"name\": \"" + name + "\",\n\"food\": [\n")
+                f.close()
                 self.parser.begin_parsing(webpage, name)
+                f = open("output.json", 'a', encoding = 'iso-8859-1')
+                f.write("\t]\n}\n")
+                f.close()
 
         # otherwise parse the specified menu
         else:
