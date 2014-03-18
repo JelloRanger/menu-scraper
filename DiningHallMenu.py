@@ -32,16 +32,16 @@ class DiningHallMenu():
 
             for name, webpage in self.urls.items():
 
-                # debugging
+                # Output
                 f = open("output.txt", 'a', encoding = 'iso-8859-1')
                 f.write(name + "\n")
                 f.close()
                 f = open("output.json", 'a', encoding = 'iso-8859-1')
-                f.write("{" + "\"name\": \"" + name + "\",\n\"food\": [\n")
+                f.write("{\n" + "\t\"name\" : \"" + name + "\",\n\t\"food\":\n\t\t[\n")
                 f.close()
                 self.parser.begin_parsing(webpage, name)
                 f = open("output.json", 'a', encoding = 'iso-8859-1')
-                f.write("\t]\n}\n")
+                f.write("\t\t]\n}\n")
                 f.close()
 
         # otherwise parse the specified menu

@@ -29,29 +29,29 @@ class FoodItem():
 	def __str__(self):
 	
 		f = open("output.json", 'a', encoding = 'iso-8859-1')
-		f.write("\t{\n\t\t\"dayOfWeek\": \"" + self.dayOfWeek + "\",\n\t\t\"mealTime\": \"" + self.mealTime + "\",\n\t\t\"station\": \"" + self.station + "\",\n\t\t\"name\": \"" + self.name + "\",\n\t\t\"attribute\": ")
+        f.write("\t\t\t{\n\t\t\t\t\"dayOfWeek\": \"" + self.dayOfWeek + "\",\n\t\t\t\t\"mealTime\":\"" + self.mealTime + "\",\n\t\t\t\t\"station\": \"" + self.station + "\",\n\t\t\t\t\"name\": \"" + self.name + "\",\n\t\t\t\t\"attribute\": ")
 		
 		self.output = (self.dayOfWeek + ", " + self.mealTime + ", " + self.station + ": " + self.name)
 		
 		if (len(self.attribute) > 0):
 			self.output += (": {}".format(self.attribute[0]))
 			
-			f.write("[\"attribute0\" : \"{}".format(self.attribute[0]) + "\"")
+            f.write("\n\t\t\t\t\t{\n\t\t\t\t\t\t\"attribute0\" : \"" + "{}".format(self.attribute[0]) + "\"")
 			
 			num = 1
 			for attr in self.attribute[1:]:
 				self.output += (", {}".format(attr))
 				
-				f.write(", \"attribute" + str(num) + "\" : \"{}".format(attr) + "\"")
+                f.write(",\n\t\t\t\t\t\t\"attribute" + str(num) + "\" : \"{}".format(attr) + "\"")
 				num += 1
 				
-			f.write("]")
+            f.write("\n\t\t\t\t\t}")
 			
 		else:
 			f.write("None")
 			
-		f.write("\n\t}\n")
-		f.close()
+        f.write("\n\t\t\t}\n")
+        f.close()
 		
 		return self.output
 		

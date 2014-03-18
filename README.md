@@ -8,7 +8,7 @@ Scrapes the RPI Sodexo Dining Hall menus.
 3. Compile DiningHallMenu.py (the other files be linked by this Python file)
 4. Output is sent to output.txt and output.json which are either rewritten or added to the directory.
 
-##Output:
+###Output:
 output.txt contains string data.
 output.json contains data in JSON format.
 
