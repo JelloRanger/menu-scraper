@@ -41,7 +41,7 @@ class DiningHallMenu():
                 f.close()
                 self.parser.begin_parsing(webpage, name)
                 f = open("output.json", 'a', encoding = 'iso-8859-1')
-                f.write("\t\t]\n}\n")
+                f.write("\t\t\t]\n}\n")
                 f.close()
 
         # otherwise parse the specified menu
