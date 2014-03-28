@@ -36,19 +36,19 @@ class FoodItem():
 		if (len(self.attribute) > 0):
 			self.output += (": {}".format(self.attribute[0]))
 			
-            f.write("\n\t\t\t\t\t{\n\t\t\t\t\t\t\"attribute0\" : \"" + "{}".format(self.attribute[0]) + "\"")
+            f.write("\n\t\t\t\t\t[\n\t\t\t\t\t\t\"" + "{}".format(self.attribute[0]) + "\"")
 			
 			num = 1
 			for attr in self.attribute[1:]:
 				self.output += (", {}".format(attr))
 				
-                f.write(",\n\t\t\t\t\t\t\"attribute" + str(num) + "\" : \"{}".format(attr) + "\"")
+                f.write(",\n\t\t\t\t\t\t\"{}".format(attr) + "\"")
 				num += 1
 				
-            f.write("\n\t\t\t\t\t}")
+            f.write("\n\t\t\t\t\t]")
 			
 		else:
-			f.write("None")
+			f.write("Null")
 			
         f.write("\n\t\t\t}\n")
         f.close()
