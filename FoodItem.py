@@ -25,35 +25,39 @@ class FoodItem():
 		#self.vegetarian
 		#self.calories
 		#self.station
+
+		
 	# print out relevant food information in a clean format
 	def __str__(self):
-	
+                
+                self.output = (self.dayOfWeek + ", " + self.mealTime + ", " + self.station + ": " + self.name)
+                return self.output
+
+	def writeToJSON(self):
                 f = open("output.json", 'a', encoding = 'iso-8859-1')
                 f.write("\t\t\t{\n\t\t\t\t\"dayOfWeek\": \"" + self.dayOfWeek + "\",\n\t\t\t\t\"mealTime\":\"" + self.mealTime + "\",\n\t\t\t\t\"station\": \"" + self.station + "\",\n\t\t\t\t\"name\": \"" + self.name + "\",\n\t\t\t\t\"attribute\": ")
-		
+
                 self.output = (self.dayOfWeek + ", " + self.mealTime + ", " + self.station + ": " + self.name)
-		
+
                 if (len(self.attribute) > 0):
                         self.output += (": {}".format(self.attribute[0]))
-			
+                        
                         f.write("\n\t\t\t\t\t[\n\t\t\t\t\t\t\"" + "{}".format(self.attribute[0]) + "\"")
-			
+                        
                         num = 1
                         for attr in self.attribute[1:]:
                                 self.output += (", {}".format(attr))
-				
+                                
                                 f.write(",\n\t\t\t\t\t\t\"{}".format(attr) + "\"")
                                 num += 1
-				
+                                
                         f.write("\n\t\t\t\t\t]")
-			
+                        
                 else:
                         f.write("null")
-			
-                f.write("\n\t\t\t}\n")
+                        
+                f.write("\n\t\t\t}")
                 f.close()
-		
-                return self.output
 		
 	# get the dining hall for a FoodItem
 	def getDiningHall(self):

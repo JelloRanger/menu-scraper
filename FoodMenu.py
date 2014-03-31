@@ -2,7 +2,6 @@ import re
 import menuparser
 import FoodItem
 
-# TO BE UTILIZED LATER
 class FoodMenu():
 
     def __init__(self):
@@ -29,10 +28,29 @@ class FoodMenu():
     def printDiningHall(self, diningHall):
         result = ""
 
+        tempArray = []
+
         for food in self.foodList:
             if food.getDiningHall() == diningHall:
-                result += str(food)
-                result += "\n"
+                tempArray.append(food)
+
+        # write all foods to output.txt and JSON file
+        # else block is for last element, no comma in JSON for last element
+        for food in tempArray[:-1]:
+            result += str(food)
+            result += "\n"
+
+            # write to json
+            food.writeToJSON()
+            j = open("output.json", 'a', encoding = 'iso-8859-1')
+            j.write(",\n")
+            j.close()
+        # handle last element
+        else:
+            food.writeToJSON()
+            j = open("output.json", 'a', encoding = 'iso-8859-1')
+            j.write("\n")
+            j.close()
 
         f = open("output.txt", 'a', encoding = 'iso-8859-1')
         f.write(result)
