@@ -47,11 +47,17 @@ class FoodMenu():
             j.close()
         # handle last element
         else:
+            result += str(food)
+            result += "\n"
+
+            # add the date as first line to output.txt
+            # (see time.struct_time to learn how to format FoodItem.date)
+            newResult = str(food.date[1]) + "/" + str(food.date[2]) + "/" + str(food.date[0]) + "\n\n" + result
             food.writeToJSON()
             j = open("output.json", 'a', encoding = 'iso-8859-1')
             j.write("\n")
             j.close()
 
         f = open("output.txt", 'a', encoding = 'iso-8859-1')
-        f.write(result)
+        f.write(newResult + "\n")
         f.close()

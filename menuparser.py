@@ -3,6 +3,7 @@ import urllib.request
 import re
 from FoodMenu import FoodMenu
 from FoodItem import FoodItem
+import time
 
 # ***** JACOB ABRAMSON *****
 # *****    DAN BAEK    *****
@@ -24,6 +25,7 @@ class MenuParser(HTMLParser):
         self.mealTime = ""
         self.station = ""
         self.attribute = []
+        self.date = ""
 
         # record the names of the food items in a food menu
         self.foodMenu = FoodMenu()
@@ -106,7 +108,7 @@ class MenuParser(HTMLParser):
 
             # create FoodItem w/ data: name, day, meal time
             self.foodMenu.addFood(FoodItem(self.diningHall, "".join(self.text), self.day,
-                                       self.mealTime, self.station, self.attribute))
+                                       self.mealTime, self.station, self.attribute, self.date))
 
             self.text = [] # clear to record next food name
 
@@ -125,6 +127,12 @@ class MenuParser(HTMLParser):
         # ready to read in station
         if self.recordStation:
             self.stationText.append(data)
+
+        # read in the date
+        if data[0:4] == "Week":
+            date = time.strptime((data[8:].strip("\n")).replace(",", ""), "%A %B %d %Y")
+            time.strftime("%d/%m/%Y", date)
+            self.date = date
 
 
     # debugging function to print list of food items
