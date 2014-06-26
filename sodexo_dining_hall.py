@@ -8,7 +8,7 @@ Contents:
                    SodexoDiningHall
 Required libraries:
                     Python Standard JSON Library.
-					Sodexo Food Library.
+                    Sodexo Food Library.
 """
 
 import json
@@ -77,7 +77,7 @@ class SodexoDiningHall():
         associated with this food.
         """
 
-        #Create a Sodexo Food variable and add it to our dictionary.
+        # Create a Sodexo Food variable and add it to our dictionary.
         new_food = SodexoFood(name, dayofweek, meal, station, attributes)
         _main_dictionary["menu"].append(new_food.data())
 

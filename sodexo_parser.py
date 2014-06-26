@@ -53,10 +53,10 @@ class MenuParser(HTMLParser):
         calls as it is implied.
         """
 
-        #Initialize the HTML Parser.
+        # Initialize the HTML Parser.
         HTMLParser.__init__(self)
 
-        #Initialize the variables.
+        # Initialize the variables.
         _record_name = False
         _record_meal = False
         _record_station = False
@@ -68,7 +68,7 @@ class MenuParser(HTMLParser):
         _station_text = []
         _attributes = []
 
-        #Hold all the dining hall menus.
+        # Hold all the dining hall menus.
         self.menu = []
 
     def begin_parsing(self, url, name):
@@ -89,13 +89,13 @@ class MenuParser(HTMLParser):
         corresponds to.
         """
 
-        #Find the HTML file.
+        # Find the HTML file.
         _HTML_file = urllib.request.urlopen(url)
-        #Read the file into bytes and decode it into ISO-8859-1.
+        # Read the file into bytes and decode it into ISO-8859-1.
         _HTML_text = HTML_file.read()
-        #Initialize our dining hall and set its name.
+        # Initialize our dining hall and set its name.
         self.dining_hall = SodexoDiningHall(name)
-        #Feed the text into the parser.
+        # Feed the text into the parser.
         self.feed(HTML_text.decode("iso-8859-1"))
 
     def handle_starttag(self, tag, attrs):
@@ -115,12 +115,12 @@ class MenuParser(HTMLParser):
         HTML attributes of a certain HTML object.
         """
 
-        #We found the name of the food.
+        # We found the name of the food.
         if (tag == "span".encode().decode("iso-8859-1") and
                 attrs[0][0] == "class".encode().decode("iso-8859-1") and
                 attrs[0][1] == "ul".encode().decode("iso-8859-1")):
             _record_name = True
-        #We found attributes associated with the food.
+        # We found attributes associated with the food.
         if (tag == "img".encode().decode("iso-8859-1") and
                 attrs[0][0] == "class".encode().decode("iso-8859-1") and
                 attrs[0][1] == "icon".encode().decode("iso-8859-1")):
@@ -128,12 +128,12 @@ class MenuParser(HTMLParser):
                 if (group[0] == "alt".encode().decode("iso-8859-1")):
                     _attributes.append(group[1])
             _record_attributes = True
-        #We found the day of the week.
+        # We found the day of the week.
         if (tag == "a".encode().decode("iso-8859-1") and
                 attrs[0][0] == "name".encode().decode("iso-8859-1") and
                 attrs[0][1] != "pagetop".encode().decode("iso-8859-1")):
             _day = attrs[0][1]
-        #We found the meal of the day.
+        # We found the meal of the day.
         if (tag == "td".encode().decode("iso-8859-1") and len(attrs) > 1):
             if (attrs[1][0] == "class".encode().decode("iso-8859-1") and
                     attrs[1][1] == "mealname".encode().decode("iso-8859-1")):
@@ -141,7 +141,7 @@ class MenuParser(HTMLParser):
             elif (attrs[0][0] == "class".encode().decode("iso-8859-1") and
                     attrs[0][1] == "mealname".encode().decode("iso-8859-1")):
                 _record_meal = True
-        #We found the station that the meal is served.
+        # We found the station that the meal is served.
         if (tag == "td"encode().decode("iso-8859-1") and len(attrs) > 0):
             if (attrs[0][0] == "class".encode().decode("iso-8859-1") and
                     attrs[0][1] == "station".encode().decode("iso-8859-1")):
@@ -161,18 +161,18 @@ class MenuParser(HTMLParser):
         in analysing.
         """
 
-        #We finished recording the attributes. Clean up.
+        # We finished recording the attributes. Clean up.
         if _record_attributes:
             _record_attributes = False
             self.attributes = []
-        #We recorded the station. Clean up the station name.
+        # We recorded the station. Clean up the station name.
         if _record_station:
             _record_station = False
-            #Make sure that we are properly recording the station.
+            # Make sure that we are properly recording the station.
             if (len(EMPTY_STRING.join(station_text)) > 0):
                 _station = EMPTY_STRING.join(station_text)
             _station_text = []
-        #We recorded the data. Now process the data into the container.
+        # We recorded the data. Now process the data into the container.
         if _record_name:
             _record_name = False
             self.dining_hall.add_food("".encode().decode("iso-8859-1").join(
@@ -195,16 +195,16 @@ class MenuParser(HTMLParser):
         results.
         """
 
-        #Since food names can consist of multiple words, we should join
-        #all relevant words together.
+        # Since food names can consist of multiple words, we should join
+        # all relevant words together.
         if self._record_attributes:
             self._name_text.append(data)
-        #Record the meal time only once.
+        # Record the meal time only once.
         if self._record_meal:
             self._meal = data
             self._record_meal = False
-        #Since station names can consist of multiple words, we should
-        #join all relevant words together.
+        # Since station names can consist of multiple words, we should
+        # join all relevant words together.
         if self._record_station:
             self._station_text.append(data)
 
