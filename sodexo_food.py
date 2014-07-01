@@ -72,7 +72,7 @@ class SodexoFood():
         WHITESPACE.join(name.split())
         name.replace(NEW_LINE, EMPTY_STRING)
         name.replace(CARRIAGE_RETURN, EMPTY_STRING)
-        _main_dictionary["name"] = name
+        self._main_dictionary["name"] = name
 
         # We typically need to clean up our station variable
         # because it suffers from the same design problems
@@ -90,11 +90,11 @@ class SodexoFood():
         WHITESPACE.join(station.split())
         station.replace(NEW_LINE, EMPTY_STRING)
         station.replace(CARRIAGE_RETURN, EMPTY_STRING)
-        _main_dictionary["station"] = station
+        self._main_dictionary["station"] = station
 
-        _main_dictionary["dayOfWeek"] = day_of_week
-        _main_dictionary["meal"] = meal
-        _main_dictionary["attributes"] = attributes
+        self._main_dictionary["dayOfWeek"] = day_of_week
+        self._main_dictionary["meal"] = meal
+        self._main_dictionary["attributes"] = attributes
 
     def data(self):
         """A function that returns the data stored in our
@@ -109,4 +109,4 @@ class SodexoFood():
         modify the code and is complacent with PEP8.
         """
 
-        return _main_dictionary
+        return self._main_dictionary

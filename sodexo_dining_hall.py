@@ -12,7 +12,7 @@ Required libraries:
 """
 
 import json
-import sodexo_food
+from sodexo_food import *
 
 
 class SodexoDiningHall():
@@ -47,8 +47,8 @@ class SodexoDiningHall():
         that this data is representing.
         """
 
-        _main_dictionary = {"diningHall": EMPTY_STRING, "menu": []}
-        _main_dictionary["diningHall"] = diningHall
+        self._main_dictionary = {"diningHall": EMPTY_STRING, "menu": []}
+        self._main_dictionary["diningHall"] = dininghall
 
     def add_food(self, name, dayofweek, meal, station, attributes):
         """This function allows us to add a food item into our menu of
@@ -79,7 +79,7 @@ class SodexoDiningHall():
 
         # Create a Sodexo Food variable and add it to our dictionary.
         new_food = SodexoFood(name, dayofweek, meal, station, attributes)
-        _main_dictionary["menu"].append(new_food.data())
+        self._main_dictionary["menu"].append(new_food.data())
 
     def data(self):
         """A function that returns the data stored in our
@@ -94,7 +94,7 @@ class SodexoDiningHall():
         modify the code and is complacent with PEP8.
         """
 
-        return _main_dictionary
+        return self._main_dictionary
 
     def output(self, file=None):
         """A JSON output function.
@@ -111,6 +111,6 @@ class SodexoDiningHall():
         which is useful for debugging."""
 
         if file is not None:
-            file.write(json.dumps(_main_dictionary))
+            file.write(json.dumps(self._main_dictionary))
         else:
-            print(json.dumps(_main_dictionary))
+            print(json.dumps(self._main_dictionary))
