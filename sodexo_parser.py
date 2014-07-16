@@ -164,7 +164,6 @@ class MenuParser(HTMLParser):
         # We finished recording the attributes. Clean up.
         if self._record_attributes:
             self._record_attributes = False
-            self.attributes = []
         # We recorded the station. Clean up the station name.
         if self._record_station:
             self._record_station = False
@@ -179,6 +178,7 @@ class MenuParser(HTMLParser):
                 self._name_text), self._day, self._meal,
 				self._station, self._attributes)
             self._name_text = []
+            self._attributes = []
 
     def handle_data(self, data):
         """An overload of the HTML Parser handle data method.
@@ -196,6 +196,9 @@ class MenuParser(HTMLParser):
         results.
         """
 
+        # We finished recording the name. Join and clean up.
+        if self._record_name:
+            self._name_text.append(data)
         # Since food names can consist of multiple words, we should join
         # all relevant words together.
         if self._record_attributes:

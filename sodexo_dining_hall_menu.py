@@ -65,12 +65,14 @@ class DiningHallMenu():
                 self.parser.begin_parsing(webpage, name)
                 self.parser.print_food(file)
 
+            file.close()
         # Otherwise, parse through the menu for the specific dining
         # hall. Dining hall must be in self.urls.
         else:
 
             assert hall_name in self.urls, "Invalid URL"
             self.parser.begin_parsing(self.urls[hall_name], hall_name)
+            file.close()
 
 # Instantiate DiningHallMenu and begin parsing menus.
 menu = DiningHallMenu()

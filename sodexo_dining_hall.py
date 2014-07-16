@@ -79,7 +79,8 @@ class SodexoDiningHall():
 
         # Create a Sodexo Food variable and add it to our dictionary.
         new_food = SodexoFood(name, dayofweek, meal, station, attributes)
-        self._main_dictionary["menu"].append(new_food.data())
+        if (new_food.data())["name"] != EMPTY_STRING:
+            self._main_dictionary["menu"].append(new_food.data())
 
     def data(self):
         """A function that returns the data stored in our
