@@ -7,9 +7,11 @@ Content:
                   DiningHallMenu
          "Main Code"
 Required libraries:
+                    Python Standard JSON Library
                     Sodexo Menu Parser
 """
 
+import json
 import sodexo_parser
 
 
@@ -19,6 +21,8 @@ class DiningHallMenu():
     searches.
     The current default is the RPI Sodexo Menu URLs.
     """
+    
+    _output_array = []
 
     def __init__(self):
         """Sodexo Dining Hall Menu Constructor
@@ -63,7 +67,7 @@ class DiningHallMenu():
 
                 # Output
                 self.parser.begin_parsing(webpage, name)
-                self.parser.print_food(file)
+                self._output_array.append(self.parser.return_data())
 
             file.close()
         # Otherwise, parse through the menu for the specific dining
@@ -73,7 +77,34 @@ class DiningHallMenu():
             assert hall_name in self.urls, "Invalid URL"
             self.parser.begin_parsing(self.urls[hall_name], hall_name)
             file.close()
+    
+    def return_data(self):
+        """Return data from parser and compile it all under an array because
+        JSON requires a single head object.
+        
+        Arguments:
+        
+        self -- Allows the function to reference parent class
+        properties. It is unnecessary to specify self during function
+        calls as it is implied."""
+        
+        return _output_array
+    
+    def output_data(self, file=None):
+        """Output JSON data into file stream.
+        
+        Arguments: self - Used to reference parent class.
+        
+        file - Allows a file stream to be passed. If none is specified the
+        default will be used.
+        """
+        
+        if file is None:
+            file = open("output.json", 'w', encoding='iso-8859-1')
+        
+        file.write(json.dumps(self._output_array))
 
 # Instantiate DiningHallMenu and begin parsing menus.
 menu = DiningHallMenu()
 menu.parse()
+menu.output_data()

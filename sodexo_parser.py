@@ -218,7 +218,7 @@ class MenuParser(HTMLParser):
 
         Arguments:
 
-        Allows the function to reference parent class
+        self -- Allows the function to reference parent class
         properties. It is unnecessary to specify self during function
         calls as it is implied.
 
@@ -232,3 +232,15 @@ class MenuParser(HTMLParser):
             self.dining_hall.output(file)
         else:
             self.dining_hall.output()
+
+    def return_data(self):
+        """Return data from Sodexo Dining Hall object.
+        
+        Arguments:
+        
+        self-- Allows the function to reference parent class
+        properties. It is unnecessary to specify self during function
+        calls as it is implied.
+        """
+        
+        return self.dining_hall.data()
