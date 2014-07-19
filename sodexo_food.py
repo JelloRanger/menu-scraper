@@ -1,14 +1,17 @@
-"""Name:     Sodexo Food Library.
-File name:   sodexo_food.py
-Description: This is the implementation for the SodexoFood class
-             required by the SodexoDiningHall class.
+"""Name:            Sodexo Food Library.
+File name:          sodexo_food.py
+Description:        This is the implementation for the SodexoFood class
+                    required by the SodexoDiningHall class.
 Contents:
-    Classes:   SodexoFood
-    Constants: Empty String (ISO-8859-1)
-               White Space (ISO-8859-1)
-               New Line (ISO-8859-1)
-               Carriage Return (ISO-8859-1)
+                    Classes:   SodexoFood
+                    Constants: Empty String (ISO-8859-1)
+                               White Space (ISO-8859-1)
+                               New Line (ISO-8859-1)
+                               Carriage Return (ISO-8859-1)
+Required libraries: Python Standard Regular Expression Library
 """
+
+import re
 
 # Let's not have UTF-8 encoded strings because the HTML is encoded in
 # ISO-8859-1.
@@ -61,32 +64,24 @@ class SodexoFood():
         attributes -- A list containing strings of attributes that are
         associated with this food.
         """
-        main_dictionary = {"name": EMPTY_STRING, "dayOfWeek": EMPTY_STRING,
-                           "meal": EMPTY_STRING, "station": EMPTY_STRING,
-                           "attributes": []
-                           }
+        self._main_dictionary = {"name": EMPTY_STRING, "dayOfWeek":
+                                 EMPTY_STRING, "meal": EMPTY_STRING,
+                                 "station": EMPTY_STRING,
+                                 "attributes": []
+                                 }
 
         # We typically need to clean up our name variable.
         # This is because Sodexo uses names with excess
         # white spaces, new lines, and carriage returns.
-        WHITESPACE.join(name.split())
-        name.replace(NEW_LINE, EMPTY_STRING)
-        name.replace(CARRIAGE_RETURN, EMPTY_STRING)
+        name = WHITESPACE.join(re.split(r"\s", name))
+        name = re.sub(r" +", WHITESPACE, name)
         self._main_dictionary["name"] = name
 
         # We typically need to clean up our station variable
         # because it suffers from the same design problems
         # as the name variable.
-        # TODO: We should be able to circumvent
-        # the problem that plagued the original code with
-        # non-UTF-8 characters using strings that are decoded
-        # into ISO-8859-1. However, this is not a certainty.
-        # Therefore, we must make modifications to this comment
-        # after testing to ensure that this comment is correct.
-        # Change in code, however, is needed only under the
-        # circumstance that this code does not work.
-        # Please, DO NOT EDIT this comment UNLESS proper testing
-        # has verified the behaviour of this code.
+        # TODO: Works for now. Might need to change to a reflection
+		# of above code.
         WHITESPACE.join(station.split())
         station.replace(NEW_LINE, EMPTY_STRING)
         station.replace(CARRIAGE_RETURN, EMPTY_STRING)
