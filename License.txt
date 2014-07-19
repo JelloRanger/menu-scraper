@@ -1,4 +1,4 @@
-Copyright [2014] [Jacob Aberhamson, Daniel Baek, Robert Hannum, Christopher Ngai]
+Copyright [2014] [Jacob Abramson, Daniel Baek, Robert Hannum, Christopher Ngai]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
