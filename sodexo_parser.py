@@ -176,7 +176,7 @@ class MenuParser(HTMLParser):
             self._record_name = False
             self.dining_hall.add_food("".encode().decode("iso-8859-1").join(
                 self._name_text), self._day, self._meal,
-				self._station, self._attributes)
+                self._station, self._attributes)
             self._name_text = []
             self._attributes = []
 

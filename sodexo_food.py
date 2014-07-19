@@ -81,7 +81,7 @@ class SodexoFood():
         # because it suffers from the same design problems
         # as the name variable.
         # TODO: Works for now. Might need to change to a reflection
-		# of above code.
+        # of above code.
         WHITESPACE.join(station.split())
         station.replace(NEW_LINE, EMPTY_STRING)
         station.replace(CARRIAGE_RETURN, EMPTY_STRING)
