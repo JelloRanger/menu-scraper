@@ -102,7 +102,7 @@ class DiningHallMenu():
         if file is None:
             file = open("output.json", 'w', encoding='iso-8859-1')
         
-        file.write(json.dumps(self._output_array))
+        file.write(json.dumps(self._output_array, sort_keys=True))
 
 # Instantiate DiningHallMenu and begin parsing menus.
 menu = DiningHallMenu()
