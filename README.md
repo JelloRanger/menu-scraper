@@ -11,7 +11,7 @@ Scrapes the RPI Sodexo Dining Hall menus.
 ###Output:
 output.json contains data in JSON format created by Python's Standard JSON Library.
 WARNING!!!
-As of September, Sodexo has changed the formatting of their menu sites and the current code does not work because of this! Modifications to the code will the rolled out as they are finished!
+As of September 2014, Sodexo has changed the formatting of their menu sites and the current code does not work because of this! Modifications to the code will the rolled out as they are finished!
 
 ##Licensing:
 Please read License.txt for more information.
